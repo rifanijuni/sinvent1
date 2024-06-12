@@ -8,14 +8,14 @@
                     <h2>DAFTAR BARANG</h2>
                 </div>
 
-                @if(session('Success'))
+                @if(session('success'))
                     <div class="alert alert-success">
-                        {{ session('Success') }}
+                        {{ session('success') }}
                     </div>
                 @endif
-                @if(session('Gagal'))
+                @if(session('gagal'))
                     <div class="alert alert-danger">
-                        {{ session('Gagal') }}
+                        {{ session('gagal') }}
                     </div>
                 @endif
 

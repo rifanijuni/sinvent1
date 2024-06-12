@@ -12,9 +12,9 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <!-- @if(session('Gagal'))
+                <!-- @if(session('gagal'))
                     <div class="alert alert-danger">
-                        {{ session('Gagal') }}
+                        {{ session('gagal') }}
                     </div>
                 @endif -->
                 @if(session('error'))

@@ -72,32 +72,31 @@ class BarangKeluarController extends Controller
             return redirect()->route('barangkeluar.create')->withErrors($errors)->withInput();
         }
     
-        BarangKeluar::create([
-            'tgl_keluar' => $request->tgl_keluar,
-            'qty_keluar' => $request->qty_keluar,
-            'barang_id' => $request->barang_id,
-        ]);
-    
-        
-        // try {
-        //     DB::beginTransaction(); // <= Mulai transaksi
-        
-        //     // Simpan data barang
-        //     $barangkeluar = new BarangKeluar();
-        //     $barangkeluar->tgl_keluar = $request->tgl_keluar;
-        //     $barangkeluar->qty_keluar = $request->qty_keluar;
-        //     $barangkeluar->kategori_id = $request->kategori_id;
-        //     $barangkeluar->save();
-        
-        //     DB::commit(); // <= Commit perubahan
-        // } catch (\Exception $e) {
-        //     report($e);
-        
-        //     DB::rollBack(); // <= Rollback jika terjadi kesalahan
-        //     // return redirect()->route('barang.index')->with(['error' => 'gagal menyimpan data.']);
-        // }
+       //BarangKeluar::create([
+            //'tgl_keluar' => $request->tgl_keluar,
+            //'qty_keluar' => $request->qty_keluar,
+            //'barang_id' => $request->barang_id,
+        //]);
 
-        return redirect()->route('barangkeluar.index')->with(['success' => 'Data Berhasil Disimpan!']);
+ 	try {
+            DB::beginTransaction(); // Mulai transaksi
+
+            // Create BarangKeluar record
+            BarangKeluar::create([
+                'tgl_keluar' => $request->tgl_keluar,
+                'qty_keluar' => $request->qty_keluar,
+                'barang_id' => $request->barang_id,
+            ]);
+
+            DB::commit(); // Commit perubahan
+
+            // Redirect to index
+            return redirect()->route('barangkeluar.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback jika terjadi kesalahan
+            return redirect()->route('barangkeluar.index')->with(['error' => 'Gagal menyimpan data.']);
+        }
+    
     }
 
     /**

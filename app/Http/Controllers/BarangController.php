@@ -102,10 +102,15 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-    $abarang = Barang::all();
+    //$abarang = Barang::all();
+    //$rsetBarang = Barang::find($id);
+    //$selectedBarang = Barang::find($rsetBarang->kategori_id);
+    //return view('v_barang.edit', compact('rsetBarang', 'abarang', 'selectedBarang'));
+    $akategori = Kategori::all();
     $rsetBarang = Barang::find($id);
-    $selectedBarang = Barang::find($rsetBarang->kategori_id);
-    return view('v_barang.edit', compact('rsetBarang', 'abarang', 'selectedBarang'));
+    $selectedKategori = Kategori::find($rsetBarang->kategori_id);
+
+    return view('v_barang.edit', compact('rsetBarang', 'akategori', 'selectedKategori'));
     }
 
     /**

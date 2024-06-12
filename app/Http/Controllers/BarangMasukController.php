@@ -54,34 +54,36 @@ class BarangMasukController extends Controller
         $request->validate([
             'tgl_masuk'          => 'required',
             'qty_masuk'          => 'required',
-            'barang_id'          => 'required',
+            'barang_id'   => 'required',
 
         ]);
-        // BarangMasuk::create([
-        //     'tgl_masuk'             => $request->tgl_masuk,
-        //     'qty_masuk'             => $request->qty_masuk,
-        //     'barang_id'             => $request->barang_id,
-        // ]);
 
-        try {
-            DB::beginTransaction(); // <= Mulai transaksi
-        
-            // Simpan data barang
-            $barangmasuk = new BarangMasuk();
-            $barangmasuk->tgl_masuk = $request->tgl_masuk;
-            $barangmasuk->qty_masuk = $request->qty_masuk;
-            $barangmasuk->kategori_id = $request->kategori_id;
-            $barangmasuk->save();
-        
-            DB::commit(); // <= Commit perubahan
+        //create post
+        //BarangMasuk::create([
+            //'tgl_masuk'             => $request->tgl_masuk,
+            //'qty_masuk'             => $request->qty_masuk,
+            //'barang_id'      => $request->barang_id,
+        //]);
+
+	try {
+            DB::beginTransaction(); // Mulai transaksi
+
+            // Create BarangMasuk record
+            $barangMasuk = BarangMasuk::create([
+                'tgl_masuk' => $request->tgl_masuk,
+                'qty_masuk' => $request->qty_masuk,
+                'barang_id' => $request->barang_id,
+            ]);
+
+
+            DB::commit(); // Commit perubahan
+
+            // Redirect to index
+            return redirect()->route('barangmasuk.index')->with(['success' => 'Data Berhasil Disimpan!']);
         } catch (\Exception $e) {
-            report($e);
-        
-            DB::rollBack(); // <= Rollback jika terjadi kesalahan
-            // return redirect()->route('barang.index')->with(['error' => 'gagal menyimpan data.']);
+            DB::rollBack(); // Rollback jika terjadi kesalahan
+            return redirect()->route('barangmasuk.index')->with(['error' => 'Gagal menyimpan data.']);
         }
-
-        return redirect()->route('barangmasuk.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**

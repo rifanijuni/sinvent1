@@ -23,8 +23,8 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-6 d-none d-lg-block m-auto">
-                        <div class="d-flex justify-content-center align-items-center">
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <img src="{{ asset('theme/img/inv.png') }}" alt="" style="width: 80%;">
                         </div>
                     </div>
